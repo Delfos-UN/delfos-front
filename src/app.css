@@ -5,7 +5,7 @@
 .bg-custom-gradient {
     background: rgb(0,38,28);
     background: radial-gradient(circle at top, #00261c 0%, #010604 25%);
-    background-size: cover; /* Asegura que cubra toda la pantalla */
+    background-size: cover;
 }
 
 .text-gradient {
@@ -13,13 +13,12 @@
 background: linear-gradient(to bottom, #869791 0%, #E0E4E2 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-    background-clip: text; /* Para otros navegadores */
-    text-fill-color: transparent; /* Para otros navegadores */
+    background-clip: text;
+    text-fill-color: transparent;
 }
 
-/* Scroll personalizado */
 ::-webkit-scrollbar {
-    width: 4px; /* Ancho de la barra de scroll */
+    width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -27,16 +26,16 @@ background: linear-gradient(to bottom, #869791 0%, #E0E4E2 100%);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #00261c; /* Color de la barra de desplazamiento (scrollbar) */
-    border-radius: 5px; /* Bordes redondeados */
+    background-color: #00261c;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #004034; /* Color cuando el usuario pasa el cursor por encima */
+    background-color: #004034;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background-color: #004e45; /* Color cuando el usuario está arrastrando la barra */
+    background-color: #004e45;
 }
 
 body {

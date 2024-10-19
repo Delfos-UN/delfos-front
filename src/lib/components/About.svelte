@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let id: string; // Definir id como una propiedad exportada
+	export let id: string;
 </script>
 
 <section {id} class="min-h-[50vh] p-6 flex flex-col justify-center max-w-4xl mx-auto pt-16">
@@ -13,8 +13,6 @@
 			más precisas y relevantes. Participa en esta iniciativa colaborativa y forma parte de una
 			comunidad que mejora la experiencia educativa para todos.
 		</p>
-
-		<!-- Botones para desarrolladores y aporte de datos -->
 		<div class="flex flex-row items-center justify-end space-x-4">
 			<!-- <a href="#devs" class="button-dev">Para Desarrolladores</a> -->
 			<a href="/aporta" class="button">Aportar Datos</a>
@@ -23,7 +21,6 @@
 </section>
 
 <style>
-	/* Estilo base para los botones */
 	.button {
 		display: inline-block;
 		padding: 12px 24px;
@@ -38,36 +35,37 @@
 		position: relative;
 		z-index: 1;
 	}
-	/* 
-.button-dev {
-  color: #e0e4e2;
-  line-height: 2;
-  position: relative;
-}
 
-.button-dev::before {
-  content: '';
-  width: 100%;
-  height: 2px;
-  border-radius: 2px;
-  background-color: #004034;
-  position: absolute;
-  bottom: -.5rem;
-  left: 0;
-  transition: transform .4s, opacity .4s;
-  opacity: 0;
-}
+	/* .button-dev {
+		color: #e0e4e2;
+		line-height: 2;
+		position: relative;
+	}
 
-.button-dev:hover::before {
-  transform: translateY(-.25rem);
-  opacity: 1;
-} */
+	.button-dev::before {
+		content: '';
+		width: 100%;
+		height: 2px;
+		border-radius: 2px;
+		background-color: #004034;
+		position: absolute;
+		bottom: -0.5rem;
+		left: 0;
+		transition:
+			transform 0.4s,
+			opacity 0.4s;
+		opacity: 0;
+	}
+
+	.button-dev:hover::before {
+		transform: translateY(-0.25rem);
+		opacity: 1;
+	} */
 
 	.button:hover {
 		background-color: #004034;
 	}
 
-	/* Contenedor flex para centrar los botones */
 	.flex {
 		display: flex;
 	}

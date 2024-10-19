@@ -3,7 +3,13 @@
 	import Materias from '$lib/components/Materias.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { limpiarTexto, profesores, extraerPlanDeEstudios, esPlanDeEstudiosValido, type Materia } from '$lib/utils/formatMaterias';
+	import {
+		limpiarTexto,
+		profesores,
+		extraerPlanDeEstudios,
+		esPlanDeEstudiosValido,
+		type Materia
+	} from '$lib/utils/formatMaterias';
 	import { guardarEncuestaConMaterias } from '$lib/utils/supabaseClient';
 
 	import '../../app.css';
@@ -18,22 +24,20 @@
 	let showPlanError: boolean = false;
 
 	function avanzarPaso() {
-		console.log("Texto de entrada para extraer plan de estudios:", inputText);
-		
+		console.log('Texto de entrada para extraer plan de estudios:', inputText);
+
 		if (!inputText.trim()) {
 			showTextareaError = true;
 			return;
 		}
 		showTextareaError = false;
 
-		// Extraer y validar el plan de estudios
 		planDeEstudios = extraerPlanDeEstudios(inputText);
 
-		// Log del plan de estudios extraído
-		console.log("Plan de estudios extraído:", planDeEstudios);
+		console.log('Plan de estudios extraído:', planDeEstudios);
 
 		if (planDeEstudios && esPlanDeEstudiosValido(planDeEstudios)) {
-			console.log("Plan de estudios es válido, avanzando al siguiente paso.");
+			console.log('Plan de estudios es válido, avanzando al siguiente paso.');
 			if (aceptaTratamientoDatos) {
 				materiasFormateadas = limpiarTexto(inputText);
 				currentStep++;
@@ -41,7 +45,7 @@
 				alert('Debe aceptar el tratamiento de datos para continuar.');
 			}
 		} else {
-			console.log("Plan de estudios no válido, mostrando error.");
+			console.log('Plan de estudios no válido, mostrando error.');
 			showPlanError = true;
 		}
 	}
@@ -55,18 +59,21 @@
 	let showValidationMessage: boolean = false;
 
 	function avanzarMateria() {
-		// Verifica si la materia actual está completa
 		const materiaActual = materiasFormateadas[currentMateriaIndex];
-		const isValid = !!materiaActual.nombre && !!materiaActual.codigo && !!materiaActual.tipologia && !!materiaActual.periodo && 
-						(materiaActual.calificacion !== null) && 
-						(!!materiaActual.profesor || !!materiaActual.otroProfesor);
+		const isValid =
+			!!materiaActual.nombre &&
+			!!materiaActual.codigo &&
+			!!materiaActual.tipologia &&
+			!!materiaActual.periodo &&
+			materiaActual.calificacion !== null &&
+			(!!materiaActual.profesor || !!materiaActual.otroProfesor);
 
 		if (!isValid) {
 			showValidationMessage = true;
 			return;
 		}
 
-		showValidationMessage = false; // Oculta el mensaje de error si es válido
+		showValidationMessage = false;
 
 		if (currentMateriaIndex < materiasFormateadas.length - 1) {
 			currentMateriaIndex++;
@@ -187,42 +194,59 @@
 			/>
 
 			<div class="flex items-center justify-center w-full gap-2 mt-6">
-                <!-- Botón de retroceder con icono de flecha -->
-                <button
-                    on:click={retrocederMateria}
-                    class="p-1 font-semibold text-white bg-transparent rounded-full border-2 border-[#004034] shadow-md w-fit hover:bg-[#004034]"
-                    disabled={currentMateriaIndex === 0}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-            
-                <!-- Texto con el índice de la materia actual -->
-                <h3 class="text-[#e0e4e2]">
-                    {currentMateriaIndex + 1} / {materiasFormateadas.length}
-                </h3>
-            
-                <!-- Botón de avanzar con icono de flecha -->
-                <button
-                    on:click={() => {
-                        if (currentMateriaIndex === materiasFormateadas.length - 1) {
-                            guardarDatos();
-                        } else {
-                            avanzarMateria();
-                        }
-                    }}
-                    class="p-1 font-semibold text-white rounded-full shadow-md border-2 border-[#004034] bg-trabg-transparent w-fit hover:bg-[#004034]"
-                >
-                    {#if currentMateriaIndex === materiasFormateadas.length - 1}
-                        Guardar
-                    {:else}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    {/if}
-                </button>
-            </div>            
+				<button
+					on:click={retrocederMateria}
+					class="p-1 font-semibold text-white bg-transparent rounded-full border-2 border-[#004034] shadow-md w-fit hover:bg-[#004034]"
+					disabled={currentMateriaIndex === 0}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="inline w-6 h-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M15 19l-7-7 7-7"
+						/>
+					</svg>
+				</button>
+				<h3 class="text-[#e0e4e2]">
+					{currentMateriaIndex + 1} / {materiasFormateadas.length}
+				</h3>
+				<button
+					on:click={() => {
+						if (currentMateriaIndex === materiasFormateadas.length - 1) {
+							guardarDatos();
+						} else {
+							avanzarMateria();
+						}
+					}}
+					class="p-1 font-semibold text-white rounded-full shadow-md border-2 border-[#004034] bg-trabg-transparent w-fit hover:bg-[#004034]"
+				>
+					{#if currentMateriaIndex === materiasFormateadas.length - 1}
+						Guardar
+					{:else}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="inline w-6 h-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9 5l7 7-7 7"
+							/>
+						</svg>
+					{/if}
+				</button>
+			</div>
 		{/if}
 	</div>
 	<Footer />

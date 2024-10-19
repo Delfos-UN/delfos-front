@@ -12,23 +12,21 @@
 
 	let seleccionOtro = false;
 
-	// Maneja la selección de un profesor desde el <select>
 	function manejarSeleccionProfesor(index: number, e: Event) {
 		const selectedValue = (e.target as HTMLSelectElement).value;
 
 		if (selectedValue === 'Otro') {
 			seleccionOtro = true;
-			materia.profesor = ''; // Limpia la selección del profesor
+			materia.profesor = '';
 		} else {
 			seleccionOtro = false;
 			materia.profesor = selectedValue;
-			materia.otroProfesor = ''; // Limpia el campo de "otroProfesor" si un profesor titular fue seleccionado
+			materia.otroProfesor = '';
 		}
 
 		seleccionarProfesor(index, e);
 	}
 
-	// Maneja la entrada de texto para "Otro Profesor"
 	function manejarCambioOtroProfesor(e: Event) {
 		const input = e.target as HTMLInputElement;
 		materia.otroProfesor = input.value;
@@ -80,7 +78,6 @@
 
 		<div class="flex items-center justify-between">
 			<div class="flex-col items-center justify-between">
-				<!-- Selección de profesor -->
 				<div class="">
 					<label for="profesor-{currentMateriaIndex}" class="block text-sm font-medium"
 						>Profesor:</label
@@ -99,7 +96,6 @@
 					</select>
 				</div>
 
-				<!-- Mostrar campo de texto si se selecciona "Otro" -->
 				{#if seleccionOtro}
 					<div>
 						<label for="otro-profesor-{currentMateriaIndex}" class="block text-sm font-medium"
@@ -116,7 +112,6 @@
 				{/if}
 			</div>
 
-			<!-- Calificación del Profesor con Estrellas -->
 			<div class="mt-4 text-center">
 				<label for="calificacion-profesor-{currentMateriaIndex}" class="block text-sm font-medium"
 					>Calificación del Profesor</label
@@ -139,7 +134,6 @@
 			</div>
 		</div>
 
-		<!-- Mensaje de advertencia si no es válido -->
 		{#if showValidationMessage}
 			<p class="mt-4 text-sm text-red-600">
 				Por favor, complete todos los campos obligatorios antes de avanzar.
@@ -149,7 +143,6 @@
 </div>
 
 <style>
-	/* Estilos para las estrellas de calificación y el select */
 	.rating {
 		display: inline-flex;
 		flex-direction: row-reverse;

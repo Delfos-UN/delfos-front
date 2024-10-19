@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let id: string; // Definir id como una propiedad exportada
+	export let id: string;
 </script>
 
 <section {id} class="flex items-center max-w-4xl min-h-screen p-6 pt-16 mx-auto">
@@ -8,9 +8,7 @@
 			Nuestro Camino Hacia el Futuro
 		</h2>
 
-		<!-- Steps container -->
 		<div class="relative ml-6 step-container">
-			<!-- Recolección de Datos -->
 			<div class="relative mb-12 ml-8">
 				<div
 					class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
@@ -25,7 +23,6 @@
 				<a href="/aporta" class="button"> Aportar datos </a>
 			</div>
 
-			<!-- Desarrollo del MVP del Modelo -->
 			<div class="relative mb-12 ml-8">
 				<div
 					class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
@@ -38,7 +35,6 @@
 				</p>
 			</div>
 
-			<!-- Pruebas de Alpha Cerrada -->
 			<div class="relative mb-12 ml-8">
 				<div
 					class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
@@ -50,10 +46,8 @@
 					Lanzaremos pruebas de alpha cerrada para afinar detalles. Si deseas ser parte y ayudarnos
 					a mejorar, ¡te invitamos a unirte!
 				</p>
-				<!-- <button class="button"> Únete a las pruebas de Alpha </button> -->
 			</div>
 
-			<!-- Beta Abierta -->
 			<div class="relative mb-12 ml-8">
 				<div
 					class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
@@ -67,7 +61,6 @@
 				</p>
 			</div>
 
-			<!-- Lanzamiento de Delfos 1.0 -->
 			<div class="relative ml-8">
 				<div
 					class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
