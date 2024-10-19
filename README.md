@@ -81,6 +81,8 @@ Para construir y ejecutar el proyecto usando Docker, sigue estos pasos:
 > - **Detener los contenedores**: `docker-compose down`
 > - **Ver contenedores en ejecución**: `docker ps`
 
+---
+
 > [!NOTE]
 >
 > ## Notas adicionales
