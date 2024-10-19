@@ -1,4 +1,3 @@
-# Step 1: Build the application
 FROM oven/bun AS builder
 
 WORKDIR /app
@@ -15,5 +14,3 @@ WORKDIR /app
 COPY --from=builder /app/.svelte-kit/output /app
 
 EXPOSE 3000
-
-CMD ["bun", "run", "preview"]
