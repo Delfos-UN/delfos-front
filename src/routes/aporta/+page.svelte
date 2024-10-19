@@ -22,6 +22,23 @@
 	let currentMateriaIndex: number = 0;
 	let planDeEstudios: string | null = null;
 	let showPlanError: boolean = false;
+	let gustoProfesional: string = '';
+
+	const opcionesGustoProfesional = [
+		'Desarrollo Web',
+		'Ingeniería de Software',
+		'Inteligencia Artificial',
+		'Ciencia de Datos',
+		'Bases de Datos',
+		'Videojuegos',
+		'Diseño y multimedia',
+		'Nube',
+		'Redes y Comunicaciones',
+		'Sistemas y modelado',
+		'Gestión de Proyectos',
+		'Ciberseguridad',
+		'Algoritmos'
+	];
 
 	function avanzarPaso() {
 		console.log('Texto de entrada para extraer plan de estudios:', inputText);
@@ -38,11 +55,13 @@
 
 		if (planDeEstudios && esPlanDeEstudiosValido(planDeEstudios)) {
 			console.log('Plan de estudios es válido, avanzando al siguiente paso.');
-			if (aceptaTratamientoDatos) {
+			if (aceptaTratamientoDatos && gustoProfesional) {
 				materiasFormateadas = limpiarTexto(inputText);
 				currentStep++;
 			} else {
-				alert('Debe aceptar el tratamiento de datos para continuar.');
+				alert(
+					'Debe aceptar el tratamiento de datos y seleccionar su área de gusto profesional para continuar.'
+				);
 			}
 		} else {
 			console.log('Plan de estudios no válido, mostrando error.');
@@ -65,8 +84,7 @@
 			!!materiaActual.codigo &&
 			!!materiaActual.tipologia &&
 			!!materiaActual.periodo &&
-			materiaActual.calificacion !== null &&
-			(!!materiaActual.profesor || !!materiaActual.otroProfesor);
+			materiaActual.calificacion !== null;
 
 		if (!isValid) {
 			showValidationMessage = true;
@@ -81,11 +99,17 @@
 	}
 
 	async function guardarDatos() {
-		const result = await guardarEncuestaConMaterias(aceptaTratamientoDatos, materiasFormateadas);
+		const result = await guardarEncuestaConMaterias(
+			aceptaTratamientoDatos,
+			gustoProfesional,
+			materiasFormateadas
+		);
 		if (result.success) {
-			console.log('Datos guardados exitosamente');
+			alert('¡Gracias por tu contribución! Los datos se han guardado exitosamente.');
+			window.location.href = '/'; // Redirige a la página de inicio
 		} else {
 			console.error('Error al guardar datos:', result.error);
+			alert('Hubo un problema al guardar los datos. Por favor, intenta de nuevo.');
 		}
 	}
 
@@ -167,6 +191,21 @@
 				{#if showPlanError}
 					<p class="text-red-500">El plan de estudios no es válido para esta encuesta.</p>
 				{/if}
+				<div class="mt-4 mb-4">
+					<label for="gusto-profesional" class="text-sm text-[#e0e4e2]">
+						Selecciona tu área de gusto profesional:
+					</label>
+					<select
+						id="gusto-profesional"
+						bind:value={gustoProfesional}
+						class="w-full p-2 mt-2 border-[#004034] border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004034] focus:border-[#004034] bg-transparent text-[#e0e4e2]"
+					>
+						<option value="" disabled selected>Seleccione una opción</option>
+						{#each opcionesGustoProfesional as opcion}
+							<option value={opcion}>{opcion}</option>
+						{/each}
+					</select>
+				</div>
 				<input
 					type="checkbox"
 					id="acepta-tratamiento"
@@ -277,5 +316,11 @@
 		background-color: #ccc;
 		cursor: not-allowed;
 		border-color: #999;
+	}
+
+	select option {
+		margin: 40px;
+		background: #010604;
+		color: #e0e4e2;
 	}
 </style>

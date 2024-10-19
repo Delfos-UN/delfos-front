@@ -64,13 +64,13 @@
 							name="calificacion-materia-{currentMateriaIndex}"
 							value={calificacion}
 							on:change={(e) => actualizarCalificacion(currentMateriaIndex, e)}
+							checked={materia.calificacion === calificacion}
 						/>
 						<label
 							for="calificacion-materia-{currentMateriaIndex}-{calificacion}"
-							title="Calificación {calificacion}">⬤</label
-						>
+							title="Calificación {calificacion}">⬤</label>
 					{/each}
-				</div>
+				</div>				
 			</div>
 		</div>
 
@@ -124,13 +124,13 @@
 							name="calificacion-profesor-{currentMateriaIndex}"
 							value={calificacion}
 							on:change={(e) => actualizarCalificacionProfesor(currentMateriaIndex, e)}
+							checked={materia.calificacion_profesor === calificacion}
 						/>
 						<label
 							for="calificacion-profesor-{currentMateriaIndex}-{calificacion}"
-							title="Calificación {calificacion}">⬤</label
-						>
+							title="Calificación {calificacion}">⬤</label>
 					{/each}
-				</div>
+				</div>				
 			</div>
 		</div>
 

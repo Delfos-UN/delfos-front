@@ -5,8 +5,11 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-export async function guardarEncuestaConMaterias(aceptaTratamientoDatos: boolean, materiasFormateadas: Materia[]) {
+export async function guardarEncuestaConMaterias(
+    aceptaTratamientoDatos: boolean,
+    gustoProfesional: string,
+    materiasFormateadas: Materia[]
+) {
     try {
         for (const materia of materiasFormateadas) {
             if (!materia.nombre || !materia.codigo || !materia.tipologia || !materia.periodo || materia.calificacion === null) {
@@ -15,8 +18,11 @@ export async function guardarEncuestaConMaterias(aceptaTratamientoDatos: boolean
         }
 
         const { data: encuestaData, error: encuestaError } = await supabase
-            .from('encuestas')
-            .insert([{ acepta_tratamiento_datos: aceptaTratamientoDatos }])
+            .from('encuesta')
+            .insert([{ 
+                acepta_tratamiento_datos: aceptaTratamientoDatos,
+                gusto_profesional: gustoProfesional // Guardar gusto_profesional
+            }])
             .select();
 
         if (encuestaError) {
@@ -53,5 +59,22 @@ export async function guardarEncuestaConMaterias(aceptaTratamientoDatos: boolean
         const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
         console.error('Error al guardar la encuesta y materias:', errorMessage);
         return { success: false, error: errorMessage };
+    }
+}
+
+export async function contarEncuestas() {
+    try {
+        const { count, error } = await supabase
+            .from('encuesta')
+            .select('*', { count: 'exact', head: true });
+
+        if (error) {
+            throw new Error(`Error al contar encuestas: ${error.message}`);
+        }
+
+        return count;
+    } catch (error) {
+        console.error('Error al contar las encuestas:', error);
+        return 0;
     }
 }

@@ -78,54 +78,77 @@ export function esPlanDeEstudiosValido(planDeEstudios: string): boolean {
 }
 
 export function limpiarTexto(inputText: string): Materia[] {
-	let cleanedText = inputText;
-	const startIndex = inputText.indexOf('CALIFICACIÓN');
-	if (startIndex !== -1) {
-		cleanedText = inputText.substring(startIndex + 'CALIFICACIÓN'.length);
-	}
+    let cleanedText = inputText;
+    const startIndex = inputText.indexOf('CALIFICACIÓN');
+    if (startIndex !== -1) {
+        cleanedText = inputText.substring(startIndex + 'CALIFICACIÓN'.length);
+    }
 
-	const endIndex = cleanedText.indexOf('Resumen de créditos');
-	if (endIndex !== -1) {
-		cleanedText = cleanedText.substring(0, endIndex);
-	}
+    const endIndex = cleanedText.indexOf('Resumen de créditos');
+    if (endIndex !== -1) {
+        cleanedText = cleanedText.substring(0, endIndex);
+    }
 
-	const materias = cleanedText.split(/APROBADA|REPROBADA/).filter(Boolean);
+    // Dividir las materias por líneas y analizarlas una por una
+    const materias = cleanedText.split('\n').filter(linea => linea.trim() !== '');
 
-	return materias
-		.map((materia) => {
-			let partes = materia
-				.replace(/\n+/g, ' ')
-				.replace(/\t+/g, ' ')
-				.replace(/\s\s+/g, ' ')
-				.trim()
-				.replace(/\s/g, ',')
-				.split(',');
+    const materiasProcesadas: Materia[] = [];
 
-			const finalIndex = partes.indexOf('Ordinaria');
-			if (finalIndex !== -1) {
-				partes = partes.slice(0, finalIndex);
-			}
+    for (let i = 0; i < materias.length; i++) {
+        const materia = materias[i].trim();
 
-			const codigoIndex = partes.findIndex((part) => part.startsWith('('));
-			if (codigoIndex === -1 || partes.length < codigoIndex + 5) {
-				return null;
-			}
+        // Verificar si la materia es reprobada y saltarla
+        if (materia === 'REPROBADA') {
+            console.log(`Materia reprobada excluida: ${materia}`);
+            continue; // Saltar las materias reprobadas
+        }
 
-			const nombre = partes.slice(0, codigoIndex).join(' ');
-			const codigo = partes[codigoIndex].replace(/[()]/g, '');
-			const tipologia = `${partes[codigoIndex + 2]} ${partes[codigoIndex + 3]}`;
-			const periodo = partes[codigoIndex + 4];
+        // Verificar si la materia está seguida por "APROBADA"
+        const siguienteLinea = materias[i + 1]?.trim();
+        if (siguienteLinea === 'APROBADA') {
+            i++; // Avanzar al siguiente índice para saltar "APROBADA"
+        } else {
+            console.log(`Materia no agregada por no estar aprobada: ${materia}`);
+            continue; // Saltar la materia si no está aprobada
+        }
 
-			return {
-				nombre: nombre.trim(),
-				codigo: codigo.trim(),
-				tipologia: tipologia.trim(),
-				periodo: periodo.trim(),
-				calificacion: null,
-				profesor: '',
-				otroProfesor: '',
-				calificacion_profesor: null
-			} as Materia;
-		})
-		.filter((materia) => materia !== null) as Materia[];
+        let partes = materia
+            .replace(/\t+/g, ' ') // Reemplazar tabulaciones con espacios
+            .replace(/\s\s+/g, ' ') // Reemplazar múltiples espacios por uno solo
+            .trim()
+            .replace(/\s/g, ',') // Reemplazar espacios con comas para la división
+            .split(',');
+
+        const finalIndex = partes.indexOf('Ordinaria');
+        if (finalIndex !== -1) {
+            partes = partes.slice(0, finalIndex);
+        }
+
+        const codigoIndex = partes.findIndex((part) => part.startsWith('('));
+        if (codigoIndex === -1 || partes.length < codigoIndex + 5) {
+            console.log(`Materia inválida por falta de campos obligatorios: ${materia}`);
+            continue;
+        }
+
+        const nombre = partes.slice(0, codigoIndex).join(' ');
+        const codigo = partes[codigoIndex].replace(/[()]/g, '');
+        const tipologia = `${partes[codigoIndex + 2]} ${partes[codigoIndex + 3]}`;
+        const periodo = partes[codigoIndex + 4];
+
+        const materiaFinal: Materia = {
+            nombre: nombre.trim(),
+            codigo: codigo.trim(),
+            tipologia: tipologia.trim(),
+            periodo: periodo.trim(),
+            calificacion: null,
+            profesor: '',
+            otroProfesor: '',
+            calificacion_profesor: null
+        };
+
+        console.log(`Materia final agregada: ${JSON.stringify(materiaFinal)}`);
+        materiasProcesadas.push(materiaFinal);
+    }
+
+    return materiasProcesadas;
 }
