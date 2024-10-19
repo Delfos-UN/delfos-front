@@ -1,17 +1,19 @@
+# Step 1: Build the application
 FROM oven/bun AS builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN bun i
+RUN bun install
 RUN bun run build
 
 FROM oven/bun
 
-COPY --from=builder /app/build .
+WORKDIR /app
+
+COPY --from=builder /app/.svelte-kit/output /app
 
 EXPOSE 3000
 
-# Iniciar el servidor con Bun
 CMD ["bun", "run", "preview"]
