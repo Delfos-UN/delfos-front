@@ -1,7 +1,17 @@
-FROM oven/bun:latest
+FROM oven/bun AS builder
 
-COPY package.json ./
-COPY bun.lockb ./
-COPY src ./
+WORKDIR /app
 
-RUN bun install
+COPY . .
+
+RUN bun i
+RUN bun run build
+
+FROM oven/bun
+
+COPY --from=builder /app/build .
+
+EXPOSE 3000
+
+# Iniciar el servidor con Bun
+CMD ["bun", "run", "preview"]
