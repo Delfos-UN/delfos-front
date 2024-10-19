@@ -69,13 +69,6 @@ Para construir y ejecutar el proyecto usando Docker, sigue estos pasos:
     docker-compose down
     ```
 
-## Estructura de archivos
-
-- **Dockerfile**: Archivo de configuración de Docker para construir la imagen.
-- **docker-compose.yml**: Archivo de configuración para levantar el contenedor usando Docker Compose.
-- **src/**: Carpeta que contiene el código fuente de la aplicación SvelteKit.
-- **package.json**: Archivo de configuración de dependencias y scripts para el proyecto.
-
 > [!TIP]
 >
 > ## Comandos útiles
