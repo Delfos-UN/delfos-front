@@ -1,3 +1,8 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Delfos-UN/delfos-front/master/delfos-imagotipo.svg?sanitize=true"
+        height="200">
+</p>
+
 # Landing Delfos
 
 Este proyecto utiliza SvelteKit, Bun y Typescript para un entorno de desarrollo rápido, y Docker para crear una imagen lista para producción.
