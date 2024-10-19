@@ -1,4 +1,4 @@
-# Proyecto SvelteKit con Bun y Docker
+# Landing Delfos
 
 Este proyecto utiliza SvelteKit y Bun para un entorno de desarrollo rápido, y Docker para crear una imagen lista para producción.
 
