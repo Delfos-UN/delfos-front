@@ -1,13 +1,26 @@
 # Landing Delfos
 
-Este proyecto utiliza SvelteKit y Bun para un entorno de desarrollo rápido, y Docker para crear una imagen lista para producción.
+Este proyecto utiliza SvelteKit, Bun y Typescript para un entorno de desarrollo rápido, y Docker para crear una imagen lista para producción.
 
-## Requisitos previos
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg" height="60" alt="svelte logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bun/bun-original.svg" height="60" alt="bun logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" height="60" alt="typescript logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" height="60" alt="docker logo"  />
+  <img width="20" />
+</div>
 
-Asegúrate de tener instalado lo siguiente:
-
-- [Bun](https://bun.sh) - Para el entorno de desarrollo.
-- [Docker](https://docs.docker.com/get-docker/) y [Docker Compose](https://docs.docker.com/compose/install/) - Para el entorno de producción.
+> [!IMPORTANT]  
+>
+> ## Requisitos previos
+>
+> Asegúrate de tener instalado lo siguiente:
+>
+> - [Bun](https://bun.sh) - Para el entorno de desarrollo.
+> - [Docker](https://docs.docker.com/get-docker/) y [Docker Compose](https://docs.docker.com/compose/install/) - Para el entorno de producción.
 
 ## Desarrollar con Bun
 
@@ -58,24 +71,23 @@ Para construir y ejecutar el proyecto usando Docker, sigue estos pasos:
 - **src/**: Carpeta que contiene el código fuente de la aplicación SvelteKit.
 - **package.json**: Archivo de configuración de dependencias y scripts para el proyecto.
 
-## Comandos útiles
+> [!TIP]
+>
+> ## Comandos útiles
+>
+> - **Instalar dependencias**: `bun install`
+> - **Modo desarrollo**: `bun run dev`
+> - **Construir y levantar el contenedor**: `docker-compose up --build`
+> - **Detener los contenedores**: `docker-compose down`
+> - **Ver contenedores en ejecución**: `docker ps`
 
-### Con Bun
-
-- **Instalar dependencias**: `bun install`
-- **Modo desarrollo**: `bun run dev`
-
-### Con Docker
-
-- **Construir y levantar el contenedor**: `docker-compose up --build`
-- **Detener los contenedores**: `docker-compose down`
-- **Ver contenedores en ejecución**: `docker ps`
-
-## Notas adicionales
-
-- Asegúrate de tener permisos adecuados para ejecutar Docker en tu sistema.
-- Si realizas cambios en el código, necesitarás reconstruir la imagen de Docker para reflejar los cambios en el contenedor.
+> [!NOTE]
+>
+> ## Notas adicionales
+>
+> - Asegúrate de tener permisos adecuados para ejecutar Docker en tu sistema.
+> - Si realizas cambios en el código, necesitarás reconstruir la imagen de Docker para reflejar los cambios en el contenedor.
 
 ---
 
-¡Listo! Ahora puedes desarrollar y ejecutar la aplicación SvelteKit usando Bun para desarrollo y Docker para producción.
+¡Listo! Ahora puedes desarrollar y ejecutar la landing de Delfos.
