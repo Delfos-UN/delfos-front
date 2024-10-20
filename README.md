@@ -3,7 +3,10 @@
         height="200">
 </p>
 
-# Landing Delfos
+# Delfos
+Delfos será un modelo inteligencia artificial que te recomienda las materias ideales. Inspirada en el Oráculo de Delfos, te guía para tomar decisiones informadas en tu camino educativo. Delfos es creado y entrenado por estudiantes. Al ser desarrollado por quienes conocen de primera mano las necesidades y desafíos académicos, Delfos ofrece recomendaciones más precisas y relevantes. Participa en esta iniciativa colaborativa y forma parte de una comunidad que mejora la experiencia educativa para todos.
+
+## Aporta al desarrollo de esta Landing.
 
 Este proyecto utiliza SvelteKit, Bun y Typescript para un entorno de desarrollo rápido, y Docker para crear una imagen lista para producción.
 
@@ -17,6 +20,12 @@ Este proyecto utiliza SvelteKit, Bun y Typescript para un entorno de desarrollo 
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" height="60" alt="docker logo"  />
   <img width="20" />
 </div>
+
+> [!IMPORTANT]  
+>
+> ## Como caloborar
+>
+> Para colaborar a este proyecto crea una rama, haz los cambios que consideres que aportan al crecimiento y buen funcionamiento de esta web y haz un PR.
 
 > [!IMPORTANT]  
 >
