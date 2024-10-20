@@ -4,6 +4,7 @@
     import Hero from '$lib/components/Hero.svelte';
     import About from '$lib/components/About.svelte';
     import Roadmap from '$lib/components/Roadmap.svelte';
+    import Dev from '$lib/components/Dev.svelte';
 
     import '../app.css';
 </script>
@@ -13,5 +14,6 @@
   <Hero />
   <About id="about" />
   <Roadmap id="roadmap" />
+  <Dev id="devs"/>
   <Footer />
 </div>

@@ -14,7 +14,7 @@
 			comunidad que mejora la experiencia educativa para todos.
 		</p>
 		<div class="flex flex-row items-center justify-end space-x-4">
-			<!-- <a href="#devs" class="button-dev">Para Desarrolladores</a> -->
+			<a href="#devs" class="button-dev">Para Desarrolladores</a>
 			<a href="/aporta" class="button">Aportar Datos</a>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 		z-index: 1;
 	}
 
-	/* .button-dev {
+	.button-dev {
 		color: #e0e4e2;
 		line-height: 2;
 		position: relative;
@@ -60,7 +60,7 @@
 	.button-dev:hover::before {
 		transform: translateY(-0.25rem);
 		opacity: 1;
-	} */
+	}
 
 	.button:hover {
 		background-color: #004034;

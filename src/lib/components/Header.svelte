@@ -34,8 +34,9 @@
 			class={`md:flex space-x-4 ${isMenuOpen ? 'block' : 'hidden'} absolute md:static bg-[#00261c] md:bg-transparent sm:bg-transparent w-full md:w-auto top-16 left-0 md:top-auto md:left-auto text-center z-40`}
 		>
 			<ul class="flex flex-col p-4 space-y-4 md:flex-row md:space-x-4 md:space-y-0 md:p-0">
-				<li><a href="/#about" class="button">Sobre Delfos</a></li>
-				<li><a href="/#roadmap" class="button">Roadmap</a></li>
+				<!-- <li><a href="/#about" class="button">Sobre Delfos</a></li>
+				<li><a href="/#roadmap" class="button">Roadmap</a></li> -->
+				<li><a href="/colab" class="button">Colaboradores</a></li>
 				<li><a href="/aporta" class="button">Aporta tus datos</a></li>
 			</ul>
 		</nav>

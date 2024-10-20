@@ -87,7 +87,7 @@
 				>
 					5
 				</div>
-				<h3 class="mb-2 text-2xl font-semibold text-gradient">Lanzamiento de Delfos 1.0</h3>
+				<h3 class="mb-2 text-2xl font-semibold text-gradient">Lanzamiento de Delfos One</h3>
 				<p class="mb-4 text-lg text-[#e0e4e2]">
 					Refinados detalles, presentaremos la versión oficial de nuestro modelo: Delfos One.
 					¡Prepárate para mejorar tu camino académico con la mejor recomendación de materias!

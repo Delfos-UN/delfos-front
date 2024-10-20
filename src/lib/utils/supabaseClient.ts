@@ -78,3 +78,28 @@ export async function contarEncuestas() {
         return 0;
     }
 }
+
+export async function guardarColaborador(
+    nombre: string,
+    email: string,
+    github: string,
+    area: string,
+    mensaje: string
+) {
+    try {
+        const { data, error } = await supabase
+            .from('colaboradores')
+            .insert([{ nombre, email, github, area, mensaje }]);
+
+        if (error) {
+            throw new Error(`Error al insertar colaborador: ${error.message}`);
+        }
+
+        console.log('Colaborador guardado correctamente:', data);
+        return { success: true, data };
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+        console.error('Error al guardar el colaborador:', errorMessage);
+        return { success: false, error: errorMessage };
+    }
+}
