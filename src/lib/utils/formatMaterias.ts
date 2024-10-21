@@ -1,27 +1,27 @@
-export const profesores: string[] = [
-	'Diana Lorena Cadavid Higuita',
-	'Roberto Antonio Manjarres Betancur',
-	'Juan David Ospina Arango',
-	'Gabriel Alberto Awad Aubad',
-	'John Willian Branch Bedoya',
-	'Francisco Javier Díaz Serna',
-	'Albeiro Espinosa Bedoya',
-	'Carlos Jaime Franco Cardona',
-	'Jaime Alberto Guzmán Luna',
-	'Patricia Jaramillo Álvarez',
-	'Jovani Alberto Jiménez Builes',
-	'Maria Constanza Torres Madroñero',
-	'Laura Lotero Vélez',
-	'Francisco Javier Moreno Arboleda',
-	'Luis Fernando Moreno Velásquez',
-	'Julián Moreno Cadavid',
-	'Yris Olaya Morales',
-	'Demetrio Arturo Ovalle Carranza',
-	'Juan David Velásquez Henao',
-	'Carlos Mario Zapata Jaramillo',
-	'Santiago Arango Aramburo',
-	'Fernán Alonso Villa Garzón'
-];
+export const profesores = [
+    'Diana Lorena Cadavid Higuita',
+    'Roberto Antonio Manjarres Betancur',
+    'Juan David Ospina Arango',
+    'Gabriel Alberto Awad Aubad',
+    'John Willian Branch Bedoya',
+    'Francisco Javier Díaz Serna',
+    'Albeiro Espinosa Bedoya',
+    'Carlos Jaime Franco Cardona',
+    'Jaime Alberto Guzmán Luna',
+    'Patricia Jaramillo Álvarez',
+    'Jovani Alberto Jiménez Builes',
+    'Maria Constanza Torres Madroñero',
+    'Laura Lotero Vélez',
+    'Francisco Javier Moreno Arboleda',
+    'Luis Fernando Moreno Velásquez',
+    'Julián Moreno Cadavid',
+    'Yris Olaya Morales',
+    'Demetrio Arturo Ovalle Carranza',
+    'Juan David Velásquez Henao',
+    'Carlos Mario Zapata Jaramillo',
+    'Santiago Arango Aramburo',
+    'Fernán Alonso Villa Garzón'
+].map(profesor => ({ value: profesor, label: profesor, created: false }));
 
 export interface Materia {
 	nombre: string;
@@ -30,7 +30,6 @@ export interface Materia {
 	periodo: string;
 	calificacion: number | null;
 	profesor: string;
-	otroProfesor: string;
 	calificacion_profesor: number | null;
 }
 
@@ -89,7 +88,6 @@ export function limpiarTexto(inputText: string): Materia[] {
         cleanedText = cleanedText.substring(0, endIndex);
     }
 
-    // Dividir las materias por líneas y analizarlas una por una
     const materias = cleanedText.split('\n').filter(linea => linea.trim() !== '');
 
     const materiasProcesadas: Materia[] = [];
@@ -97,26 +95,24 @@ export function limpiarTexto(inputText: string): Materia[] {
     for (let i = 0; i < materias.length; i++) {
         const materia = materias[i].trim();
 
-        // Verificar si la materia es reprobada y saltarla
         if (materia === 'REPROBADA') {
             console.log(`Materia reprobada excluida: ${materia}`);
-            continue; // Saltar las materias reprobadas
+            continue;
         }
 
-        // Verificar si la materia está seguida por "APROBADA"
         const siguienteLinea = materias[i + 1]?.trim();
         if (siguienteLinea === 'APROBADA') {
-            i++; // Avanzar al siguiente índice para saltar "APROBADA"
+            i++;
         } else {
             console.log(`Materia no agregada por no estar aprobada: ${materia}`);
-            continue; // Saltar la materia si no está aprobada
+            continue;
         }
 
         let partes = materia
-            .replace(/\t+/g, ' ') // Reemplazar tabulaciones con espacios
-            .replace(/\s\s+/g, ' ') // Reemplazar múltiples espacios por uno solo
+            .replace(/\t+/g, ' ')
+            .replace(/\s\s+/g, ' ')
             .trim()
-            .replace(/\s/g, ',') // Reemplazar espacios con comas para la división
+            .replace(/\s/g, ',')
             .split(',');
 
         const finalIndex = partes.indexOf('Ordinaria');
@@ -134,7 +130,6 @@ export function limpiarTexto(inputText: string): Materia[] {
         const codigo = partes[codigoIndex].replace(/[()]/g, '');
         const tipologia = `${partes[codigoIndex + 2]} ${partes[codigoIndex + 3]}`;
         const periodo = partes[codigoIndex + 4];
-
         const materiaFinal: Materia = {
             nombre: nombre.trim(),
             codigo: codigo.trim(),
@@ -142,9 +137,9 @@ export function limpiarTexto(inputText: string): Materia[] {
             periodo: periodo.trim(),
             calificacion: null,
             profesor: '',
-            otroProfesor: '',
             calificacion_profesor: null
         };
+        
 
         console.log(`Materia final agregada: ${JSON.stringify(materiaFinal)}`);
         materiasProcesadas.push(materiaFinal);

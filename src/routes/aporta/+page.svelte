@@ -142,10 +142,6 @@
 		materiasFormateadas[index].profesor = target.value;
 	}
 
-	function actualizarOtroProfesor(index: number, e: Event) {
-		const target = e.target as HTMLInputElement;
-		materiasFormateadas[index].profesor = target.value;
-	}
 </script>
 
 {#if successMessage}
@@ -282,7 +278,6 @@
 				actualizarCalificacion={(index, e) => actualizarCalificacion(index, e)}
 				actualizarCalificacionProfesor={(index, e) => actualizarCalificacionProfesor(index, e)}
 				seleccionarProfesor={(index, e) => seleccionarProfesor(index, e)}
-				actualizarOtroProfesor={(index, e) => actualizarOtroProfesor(index, e)}
 				{showValidationMessage}
 			/>
 
