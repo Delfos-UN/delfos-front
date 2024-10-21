@@ -1,12 +1,12 @@
 {
-  "name": "un-recommender",
-  "version": "0.0.1",
+  "name": "delfos-landing",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node build",
+    "start": "bun ./build/index.js",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",

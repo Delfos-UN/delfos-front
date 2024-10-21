@@ -1,19 +1,23 @@
-FROM oven/bun:alpine AS builder
+# Step 1: Build the application
+FROM oven/bun AS builder
 
+# Set the working directory in the container
 WORKDIR /app
 
+# Copy all the application files to the container
 COPY . .
 
-RUN bun install
-
+# Run your build process
+RUN bun i
 RUN bun run build
 
-FROM oven/bun:distroless
+# Step 2: Create a smaller image for running the application
+FROM oven/bun
 
-WORKDIR /app
-
+# Copy only the necessary files from the builder image to the final image
 COPY --from=builder /app/build .
 
+# Expose the port the application will run on
 EXPOSE 3000
 
-CMD ["bun", "run", "preview"]
+CMD ["bun", "run", "start"]
