@@ -6,7 +6,7 @@ COPY . .
 
 RUN bun install
 
-RUN bun run build --outdir=build
+RUN bun run build
 
 FROM oven/bun:distroless
 
