@@ -186,6 +186,9 @@
 						<p class="mb-4 text-[#e0e4e2] text-lg">
 							Pega tu historia académica en el campo de texto.
 						</p>
+						<div class="flex justify-center">
+							<img src="/paso-1.gif" alt="Paso 1" class="h-[400px]" />
+						</div>
 					</div>
 					<div class="relative ml-8">
 						<div
@@ -196,6 +199,9 @@
 						<p class="mb-4 text-[#e0e4e2] text-lg">
 							Ingresa tu correo y selecciona 3 areas de gusto profesional, luego presiona "Empezar"
 						</p>
+						<div class="flex justify-center">
+							<img src="/paso-2.gif" alt="Paso 2" class="h-[400px]" />
+						</div>
 					</div>
 					<div class="relative ml-8">
 						<div
@@ -204,9 +210,11 @@
 							3
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Selecciona la calificación de la materia y del profesor que la impartió, luego
-							presiona "Siguiente" para avanzar a la siguiente materia.
+							Selecciona la calificación de la materia y del profesor que la impartió, avanza a la siguiente materia.
 						</p>
+						<div class="flex justify-center">
+							<img src="/paso-3.gif" alt="Paso 3" class="h-[400px]" />
+						</div>
 					</div>
 					<div class="relative ml-8">
 						<div
