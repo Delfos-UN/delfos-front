@@ -3,43 +3,43 @@
 @tailwind utilities;
 
 .bg-custom-gradient {
-    background: rgb(0,38,28);
-    background: radial-gradient(circle at top, #00261c 0%, #010604 25%);
-    background-size: cover;
+	background: rgb(0, 38, 28);
+	background: radial-gradient(circle at top, #00261c 0%, #010604 25%);
+	background-size: cover;
 }
 
 .text-gradient {
-    background: #869791;
-background: linear-gradient(to bottom, #869791 0%, #E0E4E2 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+	background: #869791;
+	background: linear-gradient(to bottom, #869791 0%, #e0e4e2 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
+	width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #010604;
+	background: #010604;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #00261c;
-    border-radius: 5px;
+	background-color: #00261c;
+	border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #004034;
+	background-color: #004034;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background-color: #004e45;
+	background-color: #004e45;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}

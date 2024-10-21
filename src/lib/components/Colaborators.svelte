@@ -68,7 +68,6 @@
 		<div class="flex justify-center">
 			{#each repos as { name, url, icon }}
 				<div class="p-4 border-[#004034] border-2 rounded-lg shadow-md w-fit text-center">
-					<!-- Renderiza el ícono dinámico -->
 					<svelte:component this={icon} class="w-6 h-6 text-[#004034] text-center" />
 					<a href={url} target="_blank" rel="noopener noreferrer" class="button-dev">
 						{name}

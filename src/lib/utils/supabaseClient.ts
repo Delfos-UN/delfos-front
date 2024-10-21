@@ -5,10 +5,12 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 export async function guardarEncuestaConMaterias(
     aceptaTratamientoDatos: boolean,
     gustoProfesional: string,
-    materiasFormateadas: Materia[]
+    materiasFormateadas: Materia[],
+    correo: string
 ) {
     try {
         for (const materia of materiasFormateadas) {
@@ -21,7 +23,8 @@ export async function guardarEncuestaConMaterias(
             .from('encuesta')
             .insert([{ 
                 acepta_tratamiento_datos: aceptaTratamientoDatos,
-                gusto_profesional: gustoProfesional // Guardar gusto_profesional
+                gusto_profesional: gustoProfesional,
+                correo: correo
             }])
             .select();
 

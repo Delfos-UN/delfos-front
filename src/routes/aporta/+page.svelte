@@ -11,6 +11,8 @@
 		type Materia
 	} from '$lib/utils/formatMaterias';
 	import { guardarEncuestaConMaterias } from '$lib/utils/supabaseClient';
+	import Select from 'svelte-select';
+	import Toast from '$lib/components/Toast.svelte';
 
 	import '../../app.css';
 
@@ -22,50 +24,51 @@
 	let currentMateriaIndex: number = 0;
 	let planDeEstudios: string | null = null;
 	let showPlanError: boolean = false;
-	let gustoProfesional: string = '';
+	let email: string = '';
+	let gustoProfesional: { label: string, value: string }[] = [];
+	let successMessage: string = '';
+	let errorMessage: string = '';
+
+	$: maxItems = gustoProfesional?.length === 3;
+    $: opcionesFiltradas  = maxItems ? [] : [...opcionesGustoProfesional];
 
 	const opcionesGustoProfesional = [
-		'Desarrollo Web',
-		'Ingeniería de Software',
-		'Inteligencia Artificial',
-		'Ciencia de Datos',
-		'Bases de Datos',
-		'Videojuegos',
-		'Diseño y multimedia',
-		'Nube',
-		'Redes y Comunicaciones',
-		'Sistemas y modelado',
-		'Gestión de Proyectos',
-		'Ciberseguridad',
-		'Algoritmos'
+		{ label: 'Desarrollo Web', value: 'Desarrollo Web' },
+		{ label: 'Ingeniería de Software', value: 'Ingeniería de Software' },
+		{ label: 'Inteligencia Artificial', value: 'Inteligencia Artificial' },
+		{ label: 'Ciencia de Datos', value: 'Ciencia de Datos' },
+		{ label: 'Bases de Datos', value: 'Bases de Datos' },
+		{ label: 'Videojuegos', value: 'Videojuegos' },
+		{ label: 'Diseño y multimedia', value: 'Diseño y multimedia' },
+		{ label: 'Nube', value: 'Nube' },
+		{ label: 'Redes y Comunicaciones', value: 'Redes y Comunicaciones' },
+		{ label: 'Sistemas y modelado', value: 'Sistemas y modelado' },
+		{ label: 'Gestión de Proyectos', value: 'Gestión de Proyectos' },
+		{ label: 'Ciberseguridad', value: 'Ciberseguridad' },
+		{ label: 'Algoritmos', value: 'Algoritmos' }
 	];
 
 	function avanzarPaso() {
-		console.log('Texto de entrada para extraer plan de estudios:', inputText);
-
 		if (!inputText.trim()) {
 			showTextareaError = true;
+			errorMessage = 'El campo de texto está vacío. Por favor, ingresa tu historia académica.';
 			return;
 		}
 		showTextareaError = false;
 
 		planDeEstudios = extraerPlanDeEstudios(inputText);
 
-		console.log('Plan de estudios extraído:', planDeEstudios);
-
 		if (planDeEstudios && esPlanDeEstudiosValido(planDeEstudios)) {
-			console.log('Plan de estudios es válido, avanzando al siguiente paso.');
-			if (aceptaTratamientoDatos && gustoProfesional) {
+			if (aceptaTratamientoDatos && gustoProfesional.length > 0) {
 				materiasFormateadas = limpiarTexto(inputText);
 				currentStep++;
 			} else {
-				alert(
-					'Debe aceptar el tratamiento de datos y seleccionar su área de gusto profesional para continuar.'
-				);
+				errorMessage =
+					'Debe aceptar el tratamiento de datos y seleccionar su área de gusto profesional para continuar.';
 			}
 		} else {
-			console.log('Plan de estudios no válido, mostrando error.');
 			showPlanError = true;
+			errorMessage = 'El plan de estudios no es válido para esta encuesta.';
 		}
 	}
 
@@ -99,19 +102,23 @@
 	}
 
 	async function guardarDatos() {
-		const result = await guardarEncuestaConMaterias(
-			aceptaTratamientoDatos,
-			gustoProfesional,
-			materiasFormateadas
-		);
-		if (result.success) {
-			alert('¡Gracias por tu contribución! Los datos se han guardado exitosamente.');
-			window.location.href = '/'; // Redirige a la página de inicio
-		} else {
-			console.error('Error al guardar datos:', result.error);
-			alert('Hubo un problema al guardar los datos. Por favor, intenta de nuevo.');
-		}
-	}
+    const gustoProfesionalString = gustoProfesional.map(item => item.value).join(',');
+
+    const result = await guardarEncuestaConMaterias(
+        aceptaTratamientoDatos,
+        gustoProfesionalString,
+        materiasFormateadas,
+        email
+    );
+
+    if (result.success) {
+        successMessage = '¡Gracias por tu contribución! Los datos se han guardado exitosamente.';
+        window.location.href = '/';
+    } else {
+        errorMessage = 'Hubo un problema al guardar los datos. Por favor, intenta de nuevo.';
+    }
+}
+
 
 	function actualizarCalificacion(index: number, e: Event) {
 		const target = e.target as HTMLInputElement;
@@ -134,6 +141,14 @@
 	}
 </script>
 
+{#if successMessage}
+	<Toast message={successMessage} type="success" />
+{/if}
+
+{#if errorMessage}
+	<Toast message={errorMessage} type="error" />
+{/if}
+
 <div class="transition-colors duration-300 bg-custom-gradient font-poppins">
 	<Header />
 	<div class="flex flex-col items-center justify-center max-w-4xl min-h-screen p-6 pt-16 mx-auto">
@@ -142,9 +157,9 @@
 				<div class="mb-4">
 					<h1 class="mb-1 text-3xl font-bold text-center text-gradient">¡Necesitamos tus datos!</h1>
 					<p class="text-lg">
-						Para ofrecerte una mejor experiencia, necesitamos que nos proporciones tu historial
-						académico. Con esta información, podremos entrenar a Delfos para recomendarte las
-						mejores materias. Solo necesitas pegar tu historial académico en el siguiente campo y
+						Para ofrecerte una mejor experiencia, necesitamos que nos proporciones tu historia
+						académica. Con esta información, podremos entrenar a Delfos para recomendarte las
+						mejores materias. Solo necesitas pegar tu historia académica en el siguiente campo y
 						seguir las instrucciones. Los datos que recopilaremos son: Nombre de la materia, Código
 						de la materia, Tipología de la materia, Período en el que la cursaste y el profesor que
 						la impartió. Con esta información, podrás calificar tanto la materia como al profesor.
@@ -160,7 +175,7 @@
 							1
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Pega tu historia académica en el campo de texto y presiona el botón "Empezar".
+							Pega tu historia académica en el campo de texto.
 						</p>
 					</div>
 					<div class="relative ml-8">
@@ -170,8 +185,7 @@
 							2
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Selecciona la calificación de la materia y el profesor que la impartió, luego presiona
-							"Siguiente" para avanzar a la siguiente materia.
+							Ingresa tu correo y selecciona 3 areas de gusto profesional, luego presiona "Empezar"
 						</p>
 					</div>
 					<div class="relative ml-8">
@@ -181,40 +195,63 @@
 							3
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
+							Selecciona la calificación de la materia y del profesor que la impartió, luego
+							presiona "Siguiente" para avanzar a la siguiente materia.
+						</p>
+					</div>
+					<div class="relative ml-8">
+						<div
+							class="absolute flex items-center justify-center w-8 h-8 font-bold text-[#e0e4e2] bg-[#004034] rounded-full -left-10"
+						>
+							4
+						</div>
+						<p class="mb-4 text-[#e0e4e2] text-lg">
 							Al finalizar, presiona "Enviar" para enviar tus datos.
 						</p>
 					</div>
 				</div>
 			</div>
-			<InputHistoria bind:inputText bind:showTextareaError />
-			<div class="flex-col items-center justify-center my-4 text-center">
-				{#if showPlanError}
-					<p class="text-red-500">El plan de estudios no es válido para esta encuesta.</p>
-				{/if}
-				<div class="mt-4 mb-4">
-					<label for="gusto-profesional" class="text-sm text-[#e0e4e2]">
-						Selecciona tu área de gusto profesional:
+			<div class="w-[400px]">
+				<InputHistoria bind:inputText bind:showTextareaError />
+				<div class="flex-col items-center justify-center my-4">
+					{#if showPlanError}
+						<p class="text-red-500">El plan de estudios no es válido para esta encuesta.</p>
+					{/if}
+					<div class="mt-4 mb-4">
+						<label for="correo" class="text-sm text-[#e0e4e2]"> Correo Electrónico: </label>
+						<input
+							type="email"
+							id="correo"
+							bind:value={email}
+							class="w-full p-2 mt-2 border-[#004034] border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004034] focus:border-[#004034] bg-transparent text-[#e0e4e2]"
+							placeholder="tu@correo.com"
+							required
+						/>
+					</div>
+					<div class="mt-4 mb-4">
+						<label for="gusto-profesional" class="text-sm text-[#e0e4e2]">
+							Selecciona tus áreas de gusto profesional:
+						</label>
+						<Select
+							items={opcionesFiltradas}
+							bind:value={gustoProfesional}
+							multiple={true}
+							placeholder="Selecciona tus áreas"
+							containerStyles="background: transparent !important; border: 2px solid #004034; border-radius: 8px; max-width: 400px;"
+						>
+							<div class="text-[#e0e4e2] text-center" slot="empty">{maxItems ? 'Solo puedes seleccionar 3 áreas' : 'No hay áreas disponibles'}</div>
+						</Select> 
+					</div>
+					<input
+						type="checkbox"
+						id="acepta-tratamiento"
+						bind:checked={aceptaTratamientoDatos}
+						class="mr-2 accent-[#004034]"
+					/>
+					<label for="acepta-tratamiento" class="text-sm text-[#e0e4e2]">
+						Acepto el tratamiento de datos
 					</label>
-					<select
-						id="gusto-profesional"
-						bind:value={gustoProfesional}
-						class="w-full p-2 mt-2 border-[#004034] border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004034] focus:border-[#004034] bg-transparent text-[#e0e4e2]"
-					>
-						<option value="" disabled selected>Seleccione una opción</option>
-						{#each opcionesGustoProfesional as opcion}
-							<option value={opcion}>{opcion}</option>
-						{/each}
-					</select>
 				</div>
-				<input
-					type="checkbox"
-					id="acepta-tratamiento"
-					bind:checked={aceptaTratamientoDatos}
-					class="mr-2 accent-[#004034]"
-				/>
-				<label for="acepta-tratamiento" class="text-sm text-[#e0e4e2]">
-					Acepto el tratamiento de datos
-				</label>
 			</div>
 			<button on:click={avanzarPaso} class="button">Empezar</button>
 		{/if}
@@ -267,7 +304,7 @@
 					class="p-1 font-semibold text-white rounded-full shadow-md border-2 border-[#004034] bg-trabg-transparent w-fit hover:bg-[#004034]"
 				>
 					{#if currentMateriaIndex === materiasFormateadas.length - 1}
-						Guardar
+						Enviar
 					{:else}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -318,9 +355,27 @@
 		border-color: #999;
 	}
 
-	select option {
-		margin: 40px;
-		background: #010604;
-		color: #e0e4e2;
+	:global(.svelte-select) {
+		--background: transparent;
+		--border: 2px solid #004034;
+		--border-radius: 8px;
+		--input-color: #e0e4e2;
+		--multi-item-bg: #010604;
+		--item-color: #e0e4e2;
+		--multi-item-color: #e0e4e2;
+		--multi-item-outline: 2px solid #004034;
+		--clear-icon-color: #004034;
+		--multi-item-clear-icon-color: #004034;
+		--multi-item-border-radius: 4px;
+		--item-hover-bg: #004034;
+		--item-hover-color: #e0e4e2;
+		--item-is-active-bg: #00a77e;
+		--item-is-active-color: #e0e4e2;
+		--list-background: #010604;
+		--list-border: 2px solid #004034;
+		--placeholder-color: #e0e4e2;
+		--width: 100%;
+		--max-height: 200px;
+		--list-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 	}
 </style>
