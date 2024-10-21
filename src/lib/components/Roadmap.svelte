@@ -1,19 +1,33 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { contarEncuestas } from '../utils/supabaseClient';
+    import { onMount, onDestroy } from 'svelte';
+    import { contarEncuestas, suscribirseCambios } from '../utils/supabaseClient';
 
     export let id: string;
     let totalEncuestas: number = 0;
     let progreso: number = 0;
     let encuestasRestantes: number = 0;
+    const objetivo = 120;
+    let limpiarSuscripcion: () => void;
+	
+    function actualizarProgreso(nuevoTotal: number) {
+        totalEncuestas = nuevoTotal;
+        progreso = (totalEncuestas / objetivo) * 100;
+        encuestasRestantes = objetivo - totalEncuestas;
+    }
 
     onMount(async () => {
         const resultado = await contarEncuestas();
-        totalEncuestas = resultado ?? 0;
+        actualizarProgreso(resultado ?? 0);
 
-        const objetivo = 120;
-        progreso = (totalEncuestas / objetivo) * 100;
-        encuestasRestantes = objetivo - totalEncuestas;
+        limpiarSuscripcion = suscribirseCambios((nuevoTotal: number | null) => {
+            actualizarProgreso(nuevoTotal ?? 0);
+        });
+    });
+
+    onDestroy(() => {
+        if (limpiarSuscripcion) {
+            limpiarSuscripcion();
+        }
     });
 </script>
 
@@ -35,15 +49,15 @@
                 <p class="mb-4 text-lg text-[#e0e4e2]">
                     Estamos a {encuestasRestantes} aportes más cerca de completar los datos necesarios para entrenar a Delfos.
                 </p>
-				<div class="w-full h-4 mb-6 overflow-hidden border-2 border-[#004034] rounded-full">
-					<div
-						class="h-full bg-[#004034] transition-all duration-500"
-						style="width: {progreso}%"
-					></div>
-				</div>
+                <div class="w-full h-4 mb-6 overflow-hidden border-2 border-[#004034] rounded-full">
+                    <div
+                        class="h-full bg-[#004034] transition-all duration-500"
+                        style="width: {progreso}%"
+                    ></div>
+                </div>
                 <div class="flex flex-row items-center justify-end space-x-4">
-					<a href="/aporta" class="button">Aportar Datos</a>
-				</div>
+                    <a href="/aporta" class="button">Aportar Datos</a>
+                </div>
             </div>
 			<div class="relative mb-12 ml-8">
 				<div

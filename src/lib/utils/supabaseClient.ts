@@ -82,13 +82,31 @@ export async function contarEncuestas() {
     }
 }
 
+export function suscribirseCambios(callback: (nuevoTotal: number) => void) {
+    const channel = supabase.channel('custom-all-channel')
+        .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'encuesta' },
+            async (payload) => {
+                console.log('Change received!', payload);
+                const nuevoTotal = await contarEncuestas();
+                callback(nuevoTotal ?? 0);
+            }
+        )
+        .subscribe();
+
+    return () => {
+        supabase.removeChannel(channel);
+    };
+}
+
 export async function guardarColaborador(
     nombre: string,
     email: string,
     github: string,
     area: string,
     mensaje: string,
-    aceptaTratamientoDatos: boolean // Añadido el nuevo parámetro
+    aceptaTratamientoDatos: boolean
 ) {
     try {
         const { data, error } = await supabase
