@@ -184,7 +184,7 @@
 							1
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Pega tu historia académica en el campo de texto.
+							Copia tu historia académica (Ctrl+A , Ctrl+C).
 						</p>
 						<div class="flex justify-center">
 							<img src="/paso-1.gif" alt="Paso 1" class="h-[400px]" />
@@ -197,7 +197,7 @@
 							2
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Ingresa tu correo y selecciona 3 areas de gusto profesional, luego presiona "Empezar"
+							Ingresa pega tu hisotira académica ene l campo de texto, escribe tu correo, selecciona 3 areas de gusto profesional y acepta el tramiento de datos, luego presiona "Empezar"
 						</p>
 						<div class="flex justify-center">
 							<img src="/paso-2.gif" alt="Paso 2" class="h-[400px]" />
@@ -210,7 +210,7 @@
 							3
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Selecciona la calificación de la materia y del profesor que la impartió, avanza a la siguiente materia.
+							Selecciona la calificación de la materia y, si recuerdas al profesor que la impartió, califícalo también, avanza a la siguiente materia.
 						</p>
 						<div class="flex justify-center">
 							<img src="/paso-3.gif" alt="Paso 3" class="h-[400px]" />
