@@ -4,10 +4,13 @@ WORKDIR /app
 
 COPY . .
 
-RUN bun i
-RUN bun run build
+RUN bun install
 
-FROM oven/bun:alpine
+RUN bun run build --outdir=build
+
+FROM oven/bun:distroless
+
+WORKDIR /app
 
 COPY --from=builder /app/build .
 
