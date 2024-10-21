@@ -13,6 +13,7 @@
 	import { guardarEncuestaConMaterias } from '$lib/utils/supabaseClient';
 	import Select from 'svelte-select';
 	import Toast from '$lib/components/Toast.svelte';
+	import ModalTDP from '$lib/components/ModalTDP.svelte';
 
 	import '../../app.css';
 
@@ -31,6 +32,12 @@
 
 	$: maxItems = gustoProfesional?.length === 3;
     $: opcionesFiltradas  = maxItems ? [] : [...opcionesGustoProfesional];
+
+    let modalRef: ModalTDP | null = null;
+
+    function openModal() {
+        modalRef?.openModal();
+    }
 
 	const opcionesGustoProfesional = [
 		{ label: 'Desarrollo Web', value: 'Desarrollo Web' },
@@ -149,6 +156,8 @@
 	<Toast message={errorMessage} type="error" />
 {/if}
 
+<ModalTDP bind:this={modalRef} />
+
 <div class="transition-colors duration-300 bg-custom-gradient font-poppins">
 	<Header />
 	<div class="flex flex-col items-center justify-center max-w-4xl min-h-screen p-6 pt-16 mx-auto">
@@ -249,7 +258,7 @@
 						class="mr-2 accent-[#004034]"
 					/>
 					<label for="acepta-tratamiento" class="text-sm text-[#e0e4e2]">
-						Acepto el tratamiento de datos
+						Acepto el <button on:click={openModal} class="underline">tratamiento de datos</button>
 					</label>
 				</div>
 			</div>

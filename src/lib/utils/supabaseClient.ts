@@ -87,12 +87,13 @@ export async function guardarColaborador(
     email: string,
     github: string,
     area: string,
-    mensaje: string
+    mensaje: string,
+    aceptaTratamientoDatos: boolean // Añadido el nuevo parámetro
 ) {
     try {
         const { data, error } = await supabase
             .from('colaboradores')
-            .insert([{ nombre, email, github, area, mensaje }]);
+            .insert([{ nombre, email, github, area, mensaje, acepta_tratamiento_datos: aceptaTratamientoDatos }]);
 
         if (error) {
             throw new Error(`Error al insertar colaborador: ${error.message}`);
