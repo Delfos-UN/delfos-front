@@ -19,7 +19,7 @@
 		modalRef?.openModal();
 	}
 
-	const repos = [{ name: 'Landing', url: 'https://github.com/tu-org/delfos', icon: Globe }];
+	const repos = [{ name: 'Landing', url: 'https://github.com/Delfos-UN/delfos-front', icon: Globe }];
 
 	const handleSubmit = async (e: Event) => {
 		e.preventDefault();
