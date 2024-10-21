@@ -183,7 +183,7 @@
 							Copia tu historia académica (Ctrl+A , Ctrl+C).
 						</p>
 						<div class="flex justify-center">
-							<img src="/paso-1.gif" alt="Paso 1" class="h-[400px]" />
+							<img src="/paso-1.gif" alt="Paso 1" class="max-w-[300px]" />
 						</div>
 					</div>
 					<div class="relative ml-8">
@@ -193,10 +193,10 @@
 							2
 						</div>
 						<p class="mb-4 text-[#e0e4e2] text-lg">
-							Ingresa pega tu hisotira académica ene l campo de texto, escribe tu correo, selecciona 3 areas de gusto profesional y acepta el tramiento de datos, luego presiona "Empezar"
+							Ingresa tu historia académica en el campo de texto, escribe tu correo, selecciona 3 áreas de gusto profesional y acepta el tratamiento de datos, luego presiona "Empezar"
 						</p>
 						<div class="flex justify-center">
-							<img src="/paso-2.gif" alt="Paso 2" class="h-[400px]" />
+							<img src="/paso-2.gif" alt="Paso 2" class="max-w-[300px]" />
 						</div>
 					</div>
 					<div class="relative ml-8">
@@ -209,7 +209,7 @@
 							Selecciona la calificación de la materia y, si recuerdas al profesor que la impartió, califícalo también, avanza a la siguiente materia.
 						</p>
 						<div class="flex justify-center">
-							<img src="/paso-3.gif" alt="Paso 3" class="h-[400px]" />
+							<img src="/paso-3.gif" alt="Paso 3" class="max-w-[300px]" />
 						</div>
 					</div>
 					<div class="relative ml-8">
@@ -224,7 +224,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-[400px]">
+			<div class="max-w-[400px]">
 				<InputHistoria bind:inputText bind:showTextareaError />
 				<div class="flex-col items-center justify-center my-4">
 					{#if showPlanError}
@@ -250,7 +250,7 @@
 							bind:value={gustoProfesional}
 							multiple={true}
 							placeholder="Selecciona tus áreas"
-							containerStyles="background: transparent !important; border: 2px solid #004034; border-radius: 8px; max-width: 400px;"
+							containerStyles="background: transparent !important; border: 2px solid #004034; border-radius: 8px;"
 						>
 							<div class="text-[#e0e4e2] text-center" slot="empty">{maxItems ? 'Solo puedes seleccionar 3 áreas' : 'No hay áreas disponibles'}</div>
 						</Select> 
